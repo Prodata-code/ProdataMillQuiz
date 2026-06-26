@@ -1,0 +1,1942 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, safe-area-inset-bottom">
+    <title>Prodata Mill Special Quiz</title>
+    <!-- Google Fonts: Outfit for premium modern typography -->
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700;800&display=swap');
+
+        /* Modern CSS Variables & Reset - Enhanced for vibrant game-show colors */
+        :root {
+            --primary-dark: #070f19;
+            --primary-green: #1b4332;
+            --mid-green: #2d6a4f;
+            --accent-green: #52b788;
+            --light-green: #74c69d;
+            --gold: #ffb703;
+            --orange: #fb8500;
+            --lorry-red: #ff3366;
+            --white: #ffffff;
+            --font-main: 'Outfit', sans-serif;
+            
+            /* Colorful Game-Show Option Colors */
+            --opt-blue: #00b4d8;
+            --opt-purple: #9d4edd;
+            --opt-orange: #ff9e00;
+            --opt-pink: #f72585;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: var(--font-main);
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            background: linear-gradient(135deg, #0f2a4a 0%, #082d1c 50%, #2e0836 100%);
+            color: var(--white);
+            min-height: 100vh;
+            min-height: -webkit-fill-available;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow-x: hidden;
+            position: relative;
+            padding: clamp(10px, 4vw, 30px);
+        }
+
+        /* Colorful Glowing Light Spots in Background */
+        body::before {
+            content: '';
+            position: fixed;
+            top: -15%;
+            left: -15%;
+            width: 65vw;
+            height: 65vw;
+            background: radial-gradient(circle, rgba(0, 180, 216, 0.22) 0%, transparent 70%);
+            z-index: 2;
+            pointer-events: none;
+        }
+
+        body::after {
+            content: '';
+            position: fixed;
+            bottom: -15%;
+            right: -15%;
+            width: 70vw;
+            height: 70vw;
+            background: radial-gradient(circle, rgba(247, 37, 133, 0.22) 0%, transparent 70%);
+            z-index: 2;
+            pointer-events: none;
+        }
+
+        html {
+            height: -webkit-fill-available;
+        }
+
+        /* Floating Emoji Background */
+        #bg-floating-emojis {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+            pointer-events: none;
+            overflow: hidden;
+        }
+
+        .floating-emoji {
+            position: absolute;
+            bottom: -80px;
+            font-size: clamp(24px, 5vw, 45px);
+            opacity: 0.2;
+            filter: drop-shadow(0 0 12px rgba(255, 255, 255, 0.22));
+            animation: floatUp var(--duration) linear infinite;
+        }
+
+        @keyframes floatUp {
+            0% {
+                transform: translateY(0) rotate(0deg) translateX(0);
+                opacity: 0;
+            }
+            10% {
+                opacity: 0.2;
+            }
+            90% {
+                opacity: 0.2;
+            }
+            100% {
+                transform: translateY(-115vh) rotate(var(--rotation)) translateX(var(--drift));
+                opacity: 0;
+            }
+        }
+
+        /* App Layout Container */
+        .app-container {
+            width: 100%;
+            max-width: 580px;
+            z-index: 10;
+            position: relative;
+            margin: auto;
+        }
+
+        /* Premium Glassmorphic Cards with Colorful border and shadow */
+        .card {
+            background: rgba(13, 27, 42, 0.62);
+            backdrop-filter: blur(25px);
+            -webkit-backdrop-filter: blur(25px);
+            border: 2px solid rgba(255, 255, 255, 0.15);
+            border-radius: clamp(20px, 4vw, 30px);
+            padding: clamp(20px, 6vw, 38px);
+            box-shadow: 0 25px 55px rgba(0, 0, 0, 0.6), 
+                        inset 0 1px 0 rgba(255, 255, 255, 0.2),
+                        0 0 35px rgba(0, 180, 216, 0.12);
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Canvas Overlay for Confetti */
+        #confetti-canvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 15;
+        }
+
+        /* Screens Visibility Management */
+        .screen {
+            display: none;
+            opacity: 0;
+        }
+
+        .screen.active {
+            display: block;
+            opacity: 1;
+            animation: screenSlideIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.2) forwards;
+        }
+
+        @keyframes screenSlideIn {
+            from {
+                opacity: 0;
+                transform: translateY(35px) scale(0.96);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        /* Typography & Titles */
+        .brand-header {
+            text-align: center;
+            margin-bottom: 25px;
+        }
+
+        .title-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: linear-gradient(90deg, rgba(255, 183, 3, 0.22) 0%, rgba(251, 133, 0, 0.22) 100%);
+            border: 1.5px solid var(--gold);
+            border-radius: 20px;
+            padding: 6px 14px;
+            font-size: 11px;
+            font-weight: 700;
+            color: var(--gold);
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            margin-bottom: 12px;
+            animation: pulse 2s infinite;
+            box-shadow: 0 0 12px rgba(255, 183, 3, 0.3);
+        }
+
+        @keyframes pulse {
+            0% { box-shadow: 0 0 0 0 rgba(255, 183, 3, 0.45); }
+            70% { box-shadow: 0 0 0 8px rgba(255, 183, 3, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(255, 183, 3, 0); }
+        }
+
+        h1 {
+            font-size: clamp(26px, 6vw, 36px);
+            font-weight: 800;
+            line-height: 1.15;
+            background: linear-gradient(135deg, var(--white) 20%, var(--gold) 60%, var(--orange) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 4px 12px rgba(0,0,0,0.3);
+            letter-spacing: -0.5px;
+        }
+
+        h1 .icon-wrap {
+            display: inline-block;
+            animation: wobble 4s ease-in-out infinite;
+        }
+
+        @keyframes wobble {
+            0%, 100% { transform: rotate(0deg); }
+            50% { transform: rotate(10deg); }
+        }
+
+        p.subtitle {
+            font-size: clamp(13px, 3.5vw, 15px);
+            color: #d0dbd3;
+            margin-top: 8px;
+            font-weight: 400;
+            opacity: 0.95;
+        }
+
+        /* Form & Inputs */
+        .form-group {
+            margin-bottom: 24px;
+        }
+
+        label {
+            display: block;
+            font-size: 13px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--light-green);
+            margin-bottom: 8px;
+        }
+
+        .input-text {
+            width: 100%;
+            background: rgba(0, 0, 0, 0.35);
+            border: 1.5px solid rgba(255, 255, 255, 0.2);
+            border-radius: 12px;
+            padding: 14px 18px;
+            color: var(--white);
+            font-size: 16px;
+            font-weight: 600;
+            outline: none;
+            transition: all 0.3s ease;
+        }
+
+        .input-text:focus {
+            border-color: var(--gold);
+            box-shadow: 0 0 15px rgba(255, 183, 3, 0.35);
+            background: rgba(0, 0, 0, 0.45);
+        }
+
+        /* Avatar Selection Grid - Colorful Roles */
+        .avatar-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 12px;
+            margin-bottom: 26px;
+        }
+
+        .avatar-card {
+            background: rgba(255, 255, 255, 0.03);
+            border: 2px solid rgba(255, 255, 255, 0.1);
+            border-radius: 16px;
+            padding: 14px 8px;
+            cursor: pointer;
+            text-align: center;
+            transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+            user-select: none;
+        }
+
+        /* Lorry Captain - Electric Blue Theme */
+        .avatar-card[data-role="Lorry Captain"] {
+            border-color: rgba(0, 180, 216, 0.35);
+        }
+        .avatar-card[data-role="Lorry Captain"]:hover,
+        .avatar-card[data-role="Lorry Captain"].selected {
+            background: rgba(0, 180, 216, 0.18);
+            border-color: var(--opt-blue);
+            box-shadow: 0 8px 22px rgba(0, 180, 216, 0.4);
+            transform: translateY(-4px) scale(1.02);
+        }
+
+        /* Mill Engineer - Warm Orange/Gold Theme */
+        .avatar-card[data-role="Mill Engineer"] {
+            border-color: rgba(251, 133, 0, 0.35);
+        }
+        .avatar-card[data-role="Mill Engineer"]:hover,
+        .avatar-card[data-role="Mill Engineer"].selected {
+            background: rgba(251, 133, 0, 0.18);
+            border-color: var(--orange);
+            box-shadow: 0 8px 22px rgba(251, 133, 0, 0.4);
+            transform: translateY(-4px) scale(1.02);
+        }
+
+        /* Palm Harvester - Lush Green Theme */
+        .avatar-card[data-role="Palm Harvester"] {
+            border-color: rgba(82, 183, 136, 0.35);
+        }
+        .avatar-card[data-role="Palm Harvester"]:hover,
+        .avatar-card[data-role="Palm Harvester"].selected {
+            background: rgba(82, 183, 136, 0.18);
+            border-color: var(--accent-green);
+            box-shadow: 0 8px 22px rgba(82, 183, 136, 0.4);
+            transform: translateY(-4px) scale(1.02);
+        }
+
+        .avatar-emoji {
+            font-size: clamp(28px, 6vw, 36px);
+            display: block;
+            margin-bottom: 6px;
+            transition: transform 0.3s ease;
+        }
+
+        .avatar-card:hover .avatar-emoji {
+            transform: scale(1.2) rotate(8deg);
+        }
+
+        .avatar-label {
+            font-size: 11px;
+            font-weight: 700;
+            color: #b0c4de;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .avatar-card.selected .avatar-label {
+            color: var(--white);
+        }
+
+        /* Action Buttons */
+        .btn {
+            background: linear-gradient(135deg, var(--gold) 0%, var(--orange) 100%);
+            border: none;
+            border-radius: 14px;
+            color: var(--primary-dark);
+            font-size: 16px;
+            font-weight: 800;
+            padding: 16px 24px;
+            width: 100%;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            box-shadow: 0 8px 22px rgba(251, 133, 0, 0.4);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 30px rgba(251, 133, 0, 0.55);
+            background: linear-gradient(135deg, var(--orange) 0%, var(--gold) 100%);
+        }
+
+        .btn:active {
+            transform: translateY(-1px);
+        }
+
+        .btn::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -50%;
+            width: 30%;
+            height: 100%;
+            background: rgba(255,255,255,0.3);
+            transform: skewX(-30deg);
+            transition: none;
+        }
+
+        .btn:hover::after {
+            left: 150%;
+            transition: left 0.8s ease-in-out;
+        }
+
+        .btn-secondary {
+            background: rgba(82, 183, 136, 0.1);
+            border: 2.5px solid var(--accent-green);
+            color: var(--accent-green);
+            box-shadow: none;
+            margin-top: 12px;
+        }
+
+        .btn-secondary:hover {
+            background: var(--accent-green);
+            color: var(--primary-dark);
+            box-shadow: 0 8px 20px rgba(82, 183, 136, 0.3);
+        }
+
+        /* Quiz UI Elements */
+        .quiz-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: clamp(15px, 4vw, 25px);
+            padding-bottom: 15px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+        }
+
+        .player-profile {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .player-avatar {
+            font-size: 24px;
+            filter: drop-shadow(0 2px 5px rgba(0,0,0,0.3));
+        }
+
+        .player-name {
+            font-weight: 700;
+            font-size: clamp(13px, 3.5vw, 15px);
+            color: var(--gold);
+            max-width: 140px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        .question-counter {
+            font-size: 11px;
+            font-weight: 700;
+            background: rgba(0, 180, 216, 0.2);
+            padding: 6px 12px;
+            border-radius: 20px;
+            color: var(--opt-blue);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            border: 1px solid rgba(0, 180, 216, 0.15);
+        }
+
+        /* Timer Circular UI */
+        .timer-container {
+            position: relative;
+            width: 42px;
+            height: 42px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .timer-svg {
+            transform: rotate(-90deg);
+            width: 42px;
+            height: 42px;
+        }
+
+        .timer-circle-bg {
+            fill: none;
+            stroke: rgba(255, 255, 255, 0.08);
+            stroke-width: 4.5;
+        }
+
+        .timer-circle {
+            fill: none;
+            stroke: var(--gold);
+            stroke-width: 4.5;
+            stroke-linecap: round;
+            stroke-dasharray: 118;
+            stroke-dashoffset: 0;
+            transition: stroke-dashoffset 1s linear, stroke 0.3s ease;
+        }
+
+        .timer-text {
+            position: absolute;
+            font-size: 13px;
+            font-weight: 800;
+            color: var(--white);
+        }
+
+        .timer-container.warning .timer-circle {
+            stroke: var(--lorry-red);
+            animation: pulse-timer 1s infinite alternate;
+        }
+
+        @keyframes pulse-timer {
+            from { filter: drop-shadow(0 0 2px rgba(255,51,102,0.5)); }
+            to { filter: drop-shadow(0 0 8px rgba(255,51,102,0.9)); }
+        }
+
+        /* Question & Options - Color Coded Game Show Style */
+        .question-box {
+            margin-bottom: 24px;
+        }
+
+        .question-text {
+            font-size: clamp(17px, 4.8vw, 21px);
+            font-weight: 700;
+            line-height: 1.4;
+            color: var(--white);
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .options-list {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .option-btn {
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 16px;
+            padding: clamp(12px, 3.5vw, 16px) 18px;
+            color: var(--white);
+            text-align: left;
+            font-size: clamp(14px, 3.8vw, 16px);
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.25s cubic-bezier(0.2, 0.8, 0.2, 1);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            width: 100%;
+        }
+
+        /* Option A - Sky Blue */
+        .option-btn:nth-child(1) {
+            border: 1.5px solid rgba(0, 180, 216, 0.35);
+        }
+        .option-btn:nth-child(1):hover:not(:disabled) {
+            background: rgba(0, 180, 216, 0.15);
+            border-color: var(--opt-blue);
+            transform: translateX(6px);
+            box-shadow: 0 0 15px rgba(0, 180, 216, 0.25);
+        }
+        .option-btn:nth-child(1) .option-badge {
+            background: rgba(0, 180, 216, 0.12);
+            color: var(--opt-blue);
+        }
+
+        /* Option B - Vibrant Purple */
+        .option-btn:nth-child(2) {
+            border: 1.5px solid rgba(157, 78, 221, 0.35);
+        }
+        .option-btn:nth-child(2):hover:not(:disabled) {
+            background: rgba(157, 78, 221, 0.15);
+            border-color: var(--opt-purple);
+            transform: translateX(6px);
+            box-shadow: 0 0 15px rgba(157, 78, 221, 0.25);
+        }
+        .option-btn:nth-child(2) .option-badge {
+            background: rgba(157, 78, 221, 0.12);
+            color: var(--opt-purple);
+        }
+
+        /* Option C - Saturated Gold/Orange */
+        .option-btn:nth-child(3) {
+            border: 1.5px solid rgba(255, 158, 0, 0.35);
+        }
+        .option-btn:nth-child(3):hover:not(:disabled) {
+            background: rgba(255, 158, 0, 0.15);
+            border-color: var(--opt-orange);
+            transform: translateX(6px);
+            box-shadow: 0 0 15px rgba(255, 158, 0, 0.25);
+        }
+        .option-btn:nth-child(3) .option-badge {
+            background: rgba(255, 158, 0, 0.12);
+            color: var(--opt-orange);
+        }
+
+        /* Option D - Hot Pink */
+        .option-btn:nth-child(4) {
+            border: 1.5px solid rgba(247, 37, 133, 0.35);
+        }
+        .option-btn:nth-child(4):hover:not(:disabled) {
+            background: rgba(247, 37, 133, 0.15);
+            border-color: var(--opt-pink);
+            transform: translateX(6px);
+            box-shadow: 0 0 15px rgba(247, 37, 133, 0.25);
+        }
+        .option-btn:nth-child(4) .option-badge {
+            background: rgba(247, 37, 133, 0.12);
+            color: var(--opt-pink);
+        }
+
+        .option-badge {
+            border-radius: 10px;
+            width: 30px;
+            height: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 800;
+            font-size: 13px;
+            flex-shrink: 0;
+            transition: all 0.3s ease;
+        }
+
+        /* Correct/Incorrect State Overrides with Bright Glows */
+        .option-btn.correct {
+            background: rgba(46, 125, 50, 0.45) !important;
+            border-color: #52b788 !important;
+            box-shadow: 0 0 20px rgba(82, 183, 136, 0.4) !important;
+            transform: scale(1.01) !important;
+        }
+
+        .option-btn.correct .option-badge {
+            background: #2d6a4f !important;
+            color: var(--white) !important;
+        }
+
+        .option-btn.incorrect {
+            background: rgba(198, 40, 40, 0.45) !important;
+            border-color: var(--lorry-red) !important;
+            box-shadow: 0 0 20px rgba(255, 51, 102, 0.4) !important;
+            animation: shake 0.4s ease;
+        }
+
+        .option-btn.incorrect .option-badge {
+            background: var(--lorry-red) !important;
+            color: var(--white) !important;
+        }
+
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            20%, 60% { transform: translateX(-6px); }
+            40%, 80% { transform: translateX(6px); }
+        }
+
+        /* Explanation Panel */
+        .explanation-panel {
+            background: rgba(251, 133, 0, 0.08);
+            border: 1.5px dashed rgba(251, 133, 0, 0.35);
+            border-radius: 16px;
+            padding: clamp(14px, 4vw, 18px);
+            margin-top: 20px;
+            animation: expandDown 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.1) forwards;
+            display: none;
+        }
+
+        @keyframes expandDown {
+            from { opacity: 0; transform: translateY(-10px) scale(0.98); }
+            to { opacity: 1; transform: translateY(0) scale(1); }
+        }
+
+        .explanation-header {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-weight: 700;
+            color: var(--gold);
+            font-size: 13px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 6px;
+        }
+
+        .explanation-text {
+            font-size: clamp(12.5px, 3.5vw, 14px);
+            line-height: 1.5;
+            color: #eaeaea;
+        }
+
+        /* Lorry Progress Road System - Rainbow Track Map style */
+        .progress-road-container {
+            background: rgba(0, 0, 0, 0.45);
+            border-radius: 18px;
+            border: 1.5px solid rgba(255, 183, 3, 0.25);
+            padding: 12px 16px 8px;
+            margin-top: 26px;
+            position: relative;
+            box-shadow: inset 0 2px 5px rgba(0,0,0,0.5);
+        }
+
+        .progress-labels {
+            display: flex;
+            justify-content: space-between;
+            font-size: 10px;
+            font-weight: 800;
+            color: var(--gold);
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
+            margin-bottom: 8px;
+        }
+
+        .progress-road {
+            height: 8px;
+            background: linear-gradient(90deg, #ff9e00 0%, #ff5400 50%, #ff0054 100%);
+            border-radius: 4px;
+            position: relative;
+            margin: 0 10px;
+        }
+
+        .progress-lorry {
+            position: absolute;
+            top: -15px;
+            left: 0%;
+            transform: translateX(-50%);
+            font-size: 26px;
+            transition: left 0.8s cubic-bezier(0.25, 1, 0.5, 1.2);
+            filter: drop-shadow(0 3px 6px rgba(0,0,0,0.5));
+            z-index: 10;
+            animation: lorryVibrate 0.12s linear infinite alternate;
+        }
+        @keyframes lorryVibrate {
+            from { transform: translateX(-50%) translateY(0); }
+            to { transform: translateX(-50%) translateY(-1.5px); }
+        }
+
+        /* Results Screen elements */
+        .result-gauge-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin: 20px 0 25px;
+        }
+
+        .result-circle-wrapper {
+            position: relative;
+            width: 150px;
+            height: 150px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .result-circle-svg {
+            transform: rotate(-90deg);
+            width: 150px;
+            height: 150px;
+        }
+
+        .result-circle-bg {
+            fill: none;
+            stroke: rgba(255, 255, 255, 0.05);
+            stroke-width: 11;
+        }
+
+        .result-circle {
+            fill: none;
+            stroke: url(#goldGradient);
+            stroke-width: 11;
+            stroke-linecap: round;
+            stroke-dasharray: 439;
+            stroke-dashoffset: 439;
+            transition: stroke-dashoffset 2s cubic-bezier(0.1, 0.8, 0.2, 1);
+        }
+
+        .result-score-panel {
+            position: absolute;
+            text-align: center;
+        }
+
+        .result-score-val {
+            font-size: 38px;
+            font-weight: 800;
+            color: var(--white);
+            line-height: 1;
+        }
+
+        .result-score-label {
+            font-size: 13px;
+            color: var(--gold);
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-top: 2px;
+        }
+
+        .result-rank-title {
+            font-size: 21px;
+            font-weight: 800;
+            color: var(--accent-green);
+            margin-top: 15px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            text-align: center;
+            text-shadow: 0 0 10px rgba(82, 183, 136, 0.25);
+        }
+
+        .result-feedback {
+            font-size: clamp(13px, 3.5vw, 14.5px);
+            color: #ccc;
+            text-align: center;
+            max-width: 400px;
+            margin: 8px auto 24px;
+            line-height: 1.5;
+        }
+
+        /* High Score Leaderboard */
+        .leaderboard-box {
+            background: rgba(0, 0, 0, 0.25);
+            border-radius: 18px;
+            border: 1px solid rgba(82, 183, 136, 0.12);
+            padding: 18px;
+            margin-bottom: 25px;
+        }
+
+        .leaderboard-title {
+            font-size: 13px;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            color: var(--light-green);
+            margin-bottom: 12px;
+            text-align: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+        }
+
+        .leaderboard-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .leaderboard-row {
+            border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+            transition: background 0.3s ease;
+        }
+
+        .leaderboard-row:last-child {
+            border-bottom: none;
+        }
+
+        .leaderboard-row.highlight {
+            background: rgba(255, 183, 3, 0.12);
+        }
+
+        .leaderboard-cell {
+            padding: 10px 8px;
+            font-size: clamp(12px, 3.5vw, 14px);
+            font-weight: 600;
+        }
+
+        .cell-rank {
+            color: var(--gold);
+            width: 40px;
+            font-weight: 800;
+            text-align: center;
+        }
+
+        .cell-player {
+            color: var(--white);
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .cell-score {
+            text-align: right;
+            color: var(--accent-green);
+            font-weight: 800;
+        }
+
+        /* CSV Loading Status Bar */
+        .db-status {
+            position: absolute;
+            bottom: clamp(10px, 3vw, 15px);
+            left: 0;
+            right: 0;
+            text-align: center;
+            font-size: 10px;
+            color: rgba(255, 255, 255, 0.3);
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            z-index: 50;
+            pointer-events: none;
+        }
+
+        .db-dot {
+            display: inline-block;
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            margin-right: 5px;
+            vertical-align: middle;
+        }
+
+        .db-dot.success {
+            background: var(--accent-green);
+            box-shadow: 0 0 6px var(--accent-green);
+        }
+
+        .db-dot.fallback {
+            background: var(--gold);
+            box-shadow: 0 0 6px var(--gold);
+        }
+
+        /* Screen-Shaking Animation on click error */
+        .card.shake {
+            animation: cardShake 0.4s ease;
+        }
+
+        @keyframes cardShake {
+            0%, 100% { transform: scale(1); }
+            20%, 60% { transform: translateX(-8px) rotate(-1deg); }
+            40%, 80% { transform: translateX(8px) rotate(1deg); }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Floating Background Canvas / Element -->
+    <div id="bg-floating-emojis"></div>
+
+    <div class="app-container">
+        <!-- 1. Welcome Screen -->
+        <div id="welcome-screen" class="card screen active">
+            <div class="brand-header">
+                <div class="title-badge">🌴 Estate to Mill Journey 🚛</div>
+                <h1>Prodata Mill<br><span class="icon-wrap">🏭</span> Special Quiz <span class="icon-wrap">⚙️</span></h1>
+                <p class="subtitle">Deliver your fresh fruit bunches and prove your palm oil milling expertise!</p>
+            </div>
+
+            <div class="form-group">
+                <label for="player-name-input">Driver / Engineer Name</label>
+                <input type="text" id="player-name-input" class="input-text" placeholder="Enter name..." autocomplete="off" maxlength="15">
+            </div>
+
+            <label>Choose Your Role Avatar</label>
+            <div class="avatar-grid">
+                <div class="avatar-card selected" data-avatar="🚛" data-role="Lorry Captain">
+                    <span class="avatar-emoji">🚛</span>
+                    <span class="avatar-label">Lorry Captain</span>
+                </div>
+                <div class="avatar-card" data-avatar="👷" data-role="Mill Engineer">
+                    <span class="avatar-emoji">👷</span>
+                    <span class="avatar-label">Mill Engineer</span>
+                </div>
+                <div class="avatar-card" data-avatar="🧑‍🌾" data-role="Palm Harvester">
+                    <span class="avatar-emoji">🧑‍🌾</span>
+                    <span class="avatar-label">Harvester Pro</span>
+                </div>
+            </div>
+
+            <button id="btn-start" class="btn">
+                Start Engine & Go! 🚚
+            </button>
+        </div>
+
+        <!-- 2. Quiz screen -->
+        <div id="quiz-screen" class="card screen">
+            <canvas id="confetti-canvas"></canvas>
+            
+            <div class="quiz-header">
+                <div class="player-profile">
+                    <span id="quiz-avatar" class="player-avatar">🚛</span>
+                    <span id="quiz-name" class="player-name">Captain</span>
+                </div>
+                <div class="question-counter">Question <span id="current-q-num">1</span>/<span id="total-q-num">8</span></div>
+                <div class="timer-container" id="timer-ui">
+                    <svg class="timer-svg">
+                        <circle class="timer-circle-bg" cx="21" cy="21" r="19"></circle>
+                        <circle class="timer-circle" id="timer-progress" cx="21" cy="21" r="19"></circle>
+                    </svg>
+                    <span class="timer-text" id="timer-seconds">15</span>
+                </div>
+            </div>
+
+            <div class="question-box">
+                <div class="question-text" id="quiz-question-text">Loading question...</div>
+                <div class="options-list" id="quiz-options-container">
+                    <!-- Option buttons will be injected here -->
+                </div>
+            </div>
+
+            <!-- Explanation Panel -->
+            <div class="explanation-panel" id="explanation-box">
+                <div class="explanation-header">💡 Mill Insight</div>
+                <div class="explanation-text" id="explanation-text">Explanation here...</div>
+            </div>
+
+            <button id="btn-next" class="btn" style="display: none;">
+                Next Station ➡️
+            </button>
+
+            <!-- Lorry Progress Tracker -->
+            <div class="progress-road-container">
+                <div class="progress-labels">
+                    <span>🌴 Estate (Start)</span>
+                    <span>Mill (Goal) 🏭</span>
+                </div>
+                <div class="progress-road">
+                    <div class="progress-lorry" id="lorry-marker">🚚</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 3. Result / Score Screen -->
+        <div id="result-screen" class="card screen">
+            <div class="brand-header">
+                <div class="title-badge">Operations Completed! 🏁</div>
+                <h1>Delivery Status</h1>
+            </div>
+
+            <div class="result-gauge-container">
+                <div class="result-circle-wrapper">
+                    <svg class="result-circle-svg">
+                        <defs>
+                            <linearGradient id="goldGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                                <stop offset="0%" stop-color="#00f5d4"></stop>
+                                <stop offset="50%" stop-color="#ffb703"></stop>
+                                <stop offset="100%" stop-color="#f72585"></stop>
+                            </linearGradient>
+                        </defs>
+                        <circle class="result-circle-bg" cx="75" cy="75" r="65"></circle>
+                        <circle class="result-circle" id="result-progress" cx="75" cy="75" r="65"></circle>
+                    </svg>
+                    <div class="result-score-panel">
+                        <div class="result-score-val" id="score-percent">80%</div>
+                        <div class="result-score-label">Score</div>
+                    </div>
+                </div>
+                <div class="result-rank-title" id="rank-title">Expert Lorry Captain</div>
+            </div>
+
+            <p class="result-feedback" id="rank-feedback">
+                Outstanding! You delivered your cargo safely to the mill with maximum efficiency.
+            </p>
+
+            <!-- High Scores Leaderboard -->
+            <div class="leaderboard-box">
+                <div class="leaderboard-title">🏆 Top Mill Operators Leaderboard</div>
+                <table class="leaderboard-table">
+                    <thead>
+                        <tr style="border-bottom: 1.5px solid rgba(82, 183, 136, 0.25); text-align: left;">
+                            <th class="leaderboard-cell" style="width: 50px; color: var(--light-green); font-size: 11px; text-transform: uppercase;">Rank</th>
+                            <th class="leaderboard-cell" style="color: var(--light-green); font-size: 11px; text-transform: uppercase;">Operator</th>
+                            <th class="leaderboard-cell" style="text-align: right; color: var(--light-green); font-size: 11px; text-transform: uppercase;">Score</th>
+                        </tr>
+                    </thead>
+                    <tbody id="leaderboard-rows">
+                        <!-- High scores loaded here -->
+                    </tbody>
+                </table>
+            </div>
+
+            <button id="btn-restart" class="btn">
+                Deliver Another Load! 🔄
+            </button>
+        </div>
+    </div>
+
+    <!-- CSV status bar -->
+    <div class="db-status">
+        <span id="db-status-dot" class="db-dot fallback"></span>
+        <span id="db-status-text">Using Local Database</span>
+    </div>
+
+    <!-- Client-Side JavaScript Game Logic -->
+    <script>
+        // --- Custom Web Audio API Synthesizer ---
+        class SoundSynth {
+            constructor() {
+                this.ctx = null;
+            }
+
+            init() {
+                if (!this.ctx) {
+                    this.ctx = new (window.AudioContext || window.webkitAudioContext)();
+                }
+                if (this.ctx.state === 'suspended') {
+                    this.ctx.resume();
+                }
+            }
+
+            playBeep() {
+                this.init();
+                if (!this.ctx) return;
+
+                const osc = this.ctx.createOscillator();
+                const gain = this.ctx.createGain();
+
+                osc.connect(gain);
+                gain.connect(this.ctx.destination);
+
+                osc.type = 'triangle';
+                osc.frequency.setValueAtTime(587.33, this.ctx.currentTime); // D5
+                osc.frequency.exponentialRampToValueAtTime(880.00, this.ctx.currentTime + 0.08); // A5
+
+                gain.gain.setValueAtTime(0.15, this.ctx.currentTime);
+                gain.gain.exponentialRampToValueAtTime(0.001, this.ctx.currentTime + 0.15);
+
+                osc.start();
+                osc.stop(this.ctx.currentTime + 0.16);
+            }
+
+            playEngine() {
+                this.init();
+                if (!this.ctx) return;
+
+                const duration = 1.6;
+                const now = this.ctx.currentTime;
+
+                // Create primary engine sound
+                const osc = this.ctx.createOscillator();
+                const gain = this.ctx.createGain();
+
+                osc.connect(gain);
+                gain.connect(this.ctx.destination);
+
+                osc.type = 'sawtooth';
+                // Revving sweep
+                osc.frequency.setValueAtTime(45, now);
+                osc.frequency.exponentialRampToValueAtTime(90, now + 0.4);
+                osc.frequency.linearRampToValueAtTime(70, now + 0.8);
+                osc.frequency.exponentialRampToValueAtTime(140, now + 1.2);
+                osc.frequency.exponentialRampToValueAtTime(50, now + duration);
+
+                gain.gain.setValueAtTime(0.001, now);
+                gain.gain.linearRampToValueAtTime(0.22, now + 0.3);
+                gain.gain.linearRampToValueAtTime(0.15, now + 0.8);
+                gain.gain.linearRampToValueAtTime(0.25, now + 1.2);
+                gain.gain.exponentialRampToValueAtTime(0.001, now + duration);
+
+                osc.start();
+                osc.stop(now + duration);
+
+                // Play a brief horn beep "Beep Beep!" at the end of engine start
+                setTimeout(() => {
+                    this.playHorn();
+                }, 450);
+            }
+
+            playHorn() {
+                if (!this.ctx) return;
+                const now = this.ctx.currentTime;
+                
+                // Double horn tone (BEEP BEEP)
+                const playTone = (time) => {
+                    const osc1 = this.ctx.createOscillator();
+                    const osc2 = this.ctx.createOscillator();
+                    const gainNode = this.ctx.createGain();
+
+                    osc1.connect(gainNode);
+                    osc2.connect(gainNode);
+                    gainNode.connect(this.ctx.destination);
+
+                    osc1.type = 'square';
+                    osc1.frequency.setValueAtTime(420, time);
+                    osc2.type = 'square';
+                    osc2.frequency.setValueAtTime(425, time); // slightly detuned for thickness
+
+                    gainNode.gain.setValueAtTime(0.08, time);
+                    gainNode.gain.exponentialRampToValueAtTime(0.001, time + 0.12);
+
+                    osc1.start(time);
+                    osc2.start(time);
+                    osc1.stop(time + 0.13);
+                    osc2.stop(time + 0.13);
+                };
+
+                playTone(now);
+                playTone(now + 0.15);
+            }
+
+            playCorrect() {
+                this.init();
+                if (!this.ctx) return;
+
+                const now = this.ctx.currentTime;
+                
+                // Arpeggio chime
+                const playChime = (freq, time, dur) => {
+                    const osc = this.ctx.createOscillator();
+                    const gain = this.ctx.createGain();
+                    osc.connect(gain);
+                    gain.connect(this.ctx.destination);
+
+                    osc.type = 'sine';
+                    osc.frequency.setValueAtTime(freq, time);
+
+                    gain.gain.setValueAtTime(0.12, time);
+                    gain.gain.exponentialRampToValueAtTime(0.001, time + dur);
+
+                    osc.start(time);
+                    osc.stop(time + dur + 0.05);
+                };
+
+                playChime(523.25, now, 0.2);       // C5
+                playChime(659.25, now + 0.08, 0.2); // E5
+                playChime(783.99, now + 0.16, 0.35); // G5
+                playChime(1046.50, now + 0.24, 0.55); // C6
+            }
+
+            playIncorrect() {
+                this.init();
+                if (!this.ctx) return;
+
+                const now = this.ctx.currentTime;
+                const osc = this.ctx.createOscillator();
+                const gain = this.ctx.createGain();
+
+                osc.connect(gain);
+                gain.connect(this.ctx.destination);
+
+                osc.type = 'sawtooth';
+                osc.frequency.setValueAtTime(130, now); // Low C3
+                osc.frequency.linearRampToValueAtTime(90, now + 0.45); // Sweep down
+
+                gain.gain.setValueAtTime(0.2, now);
+                gain.gain.exponentialRampToValueAtTime(0.001, now + 0.48);
+
+                osc.start();
+                osc.stop(now + 0.5);
+            }
+
+            playVictory() {
+                this.init();
+                if (!this.ctx) return;
+
+                const now = this.ctx.currentTime;
+                const tempo = 0.13;
+                
+                const playNote = (freq, startTime, dur, type = 'triangle') => {
+                    const osc = this.ctx.createOscillator();
+                    const gain = this.ctx.createGain();
+                    osc.connect(gain);
+                    gain.connect(this.ctx.destination);
+                    osc.type = type;
+                    osc.frequency.setValueAtTime(freq, startTime);
+                    gain.gain.setValueAtTime(0.1, startTime);
+                    gain.gain.exponentialRampToValueAtTime(0.001, startTime + dur);
+                    osc.start(startTime);
+                    osc.stop(startTime + dur + 0.05);
+                };
+
+                const notes = [
+                    523.25, 659.25, 783.99, 1046.50, // C, E, G, C
+                    783.99, 1046.50, 1318.51, 1567.98 // G, C, E, G (higher octave)
+                ];
+
+                notes.forEach((freq, idx) => {
+                    playNote(freq, now + idx * tempo, 0.25);
+                });
+                
+                // Final chord
+                playNote(1046.50, now + notes.length * tempo, 1.2, 'sine');
+                playNote(1318.51, now + notes.length * tempo, 1.2, 'sine');
+                playNote(1567.98, now + notes.length * tempo, 1.2, 'sine');
+                playNote(2093.00, now + notes.length * tempo, 1.2, 'sine');
+            }
+        }
+
+        const audio = new SoundSynth();
+
+        // --- Question Database Fallback Content ---
+        const fallbackQuestions = [
+            {
+                question: "What does FFB stand for in palm oil milling?",
+                options: ["Fast Flying Banana 🍌", "Fresh Fruit Bunch 🌴", "Fine Filtered Butter 🧈", "Friendly Forest Buffalo 🦬"],
+                correctIndex: 1,
+                explanation: "FFB stands for Fresh Fruit Bunch. It is the primary raw material harvested from palm trees and delivered to the mill."
+            },
+            {
+                question: "What is the main purpose of the \"Sterilization\" station in the mill?",
+                options: ["To make the fruits smell like lavender 🌸", "To deactivate enzymes and loosen fruits from bunches ⚙️", "To wash the lorry wheels 🚿", "To turn the oil into gold 🪙"],
+                correctIndex: 1,
+                explanation: "Sterilization uses steam to deactivate enzymes (preventing FFA build-up) and loosen the fruits from the bunch stalks."
+            },
+            {
+                question: "Which vehicle is most commonly used to transport FFBs from estates to the mill?",
+                options: ["High-speed sports car 🏎️", "Double-decker tour bus 🚌", "FFB Lorry/Truck 🚚", "Submarine 🤿"],
+                correctIndex: 2,
+                explanation: "Heavy FFB lorries and trucks are the workhorses that transport tons of Fresh Fruit Bunches daily from estates to mills."
+            },
+            {
+                question: "What color is Crude Palm Oil (CPO) right after extraction?",
+                options: ["Vibrant Sky Blue 🔵", "Bright Orange-Red 🔴", "Jet Metallic Black ⚫", "Neon Purple 🟣"],
+                correctIndex: 1,
+                explanation: "Crude Palm Oil is naturally bright orange-red due to its exceptionally high content of carotenoids (vitamin A precursors)."
+            },
+            {
+                question: "Which machine separates the palm kernels from their cracked shells?",
+                options: ["Claybath or Hydrocyclone 🛁", "Automatic Egg Slicer 🥚", "Electric Toothbrush 🪥", "Popcorn Maker 🍿"],
+                correctIndex: 0,
+                explanation: "A Claybath or Hydrocyclone uses density differences in a liquid medium to float kernels and sink cracked shells."
+            },
+            {
+                question: "What is the main job of the \"Threshing\" station?",
+                options: ["To clean the lorry windshields 🧽", "To separate sterilized fruits from the empty bunches 🔄", "To grind kernels into coffee powder ☕", "To sing welcome songs to visitors 🎶"],
+                correctIndex: 1,
+                explanation: "The Threshing station uses a rotating drum to shake loose and separate the sterilized fruits from the empty fruit bunches (EFB)."
+            },
+            {
+                question: "What is the abbreviation for the liquid waste water generated from palm oil milling?",
+                options: ["COLA 🥤", "PEPSI 🥤", "POME (Palm Oil Mill Effluent) 💧", "JUICE 🍹"],
+                correctIndex: 2,
+                explanation: "POME stands for Palm Oil Mill Effluent. It is the organic wastewater produced during the clarification and purification stages."
+            },
+            {
+                question: "How heavy is a typical fully loaded palm oil FFB lorry?",
+                options: ["100 grams (like a small bird) 🐦", "10 to 30 tonnes! 🚛", "5 kilograms (like a cat) 🐱", "1 million tonnes (like a mountain) 🏔️"],
+                correctIndex: 1,
+                explanation: "Fully loaded FFB lorries are heavy-duty vehicles, typically weighing between 10 to 30 tonnes depending on the truck size."
+            }
+        ];
+
+        let quizQuestions = [...fallbackQuestions];
+
+        // --- Custom CSV Parser Engine ---
+        function parseCSV(text) {
+            const result = [];
+            const lines = text.split(/\r?\n/);
+            if (lines.length === 0) return result;
+
+            // Determine if first row is header
+            let startIndex = 0;
+            if (lines[0] && lines[0].toLowerCase().includes('question')) {
+                startIndex = 1;
+            }
+
+            for (let i = startIndex; i < lines.length; i++) {
+                const line = lines[i].trim();
+                if (!line) continue;
+
+                const row = [];
+                let inQuotes = false;
+                let currentField = '';
+
+                for (let c = 0; c < line.length; c++) {
+                    const char = line[c];
+                    if (char === '"') {
+                        // Handle escaped double quote inside quotes ("")
+                        if (inQuotes && line[c + 1] === '"') {
+                            currentField += '"';
+                            c++; 
+                        } else {
+                            inQuotes = !inQuotes;
+                        }
+                    } else if (char === ',' && !inQuotes) {
+                        row.push(currentField);
+                        currentField = '';
+                    } else {
+                        currentField += char;
+                    }
+                }
+                row.push(currentField);
+
+                if (row.length >= 6) {
+                    const question = row[0];
+                    const optA = row[1];
+                    const optB = row[2];
+                    const optC = row[3];
+                    const optD = row[4];
+                    const correctChar = row[5].trim().toUpperCase();
+                    const explanation = row[6] || "";
+
+                    // Map correct option letter to index (A->0, B->1, C->2, D->3)
+                    const correctIndex = correctChar.charCodeAt(0) - 65; 
+
+                    if (correctIndex >= 0 && correctIndex <= 3) {
+                        result.push({
+                            question: question,
+                            options: [optA, optB, optC, optD],
+                            correctIndex: correctIndex,
+                            explanation: explanation
+                        });
+                    }
+                }
+            }
+            return result;
+        }
+
+        // Fetch external CSV on startup
+        async function loadQuestionsFromCSV() {
+            const statusDot = document.getElementById('db-status-dot');
+            const statusText = document.getElementById('db-status-text');
+            
+            try {
+                const response = await fetch('questions.csv');
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                const csvData = await response.text();
+                const parsed = parseCSV(csvData);
+                
+                if (parsed.length > 0) {
+                    quizQuestions = parsed;
+                    statusDot.className = "db-dot success";
+                    statusText.textContent = `CSV Database Connected (${parsed.length} Questions)`;
+                    console.log(`Loaded ${parsed.length} questions from CSV.`);
+                } else {
+                    throw new Error("CSV parsed, but 0 valid questions found.");
+                }
+            } catch (error) {
+                console.warn("Could not load external CSV. Falling back to local data.", error);
+                statusDot.className = "db-dot fallback";
+                statusText.textContent = "Offline Mode (Local Database Connected)";
+                quizQuestions = [...fallbackQuestions];
+            }
+        }
+
+        // --- App State Management ---
+        const gameState = {
+            playerName: "Operator",
+            playerAvatar: "🚛",
+            playerRole: "Lorry Captain",
+            currentQuestionIndex: 0,
+            score: 0,
+            answers: [], // tracks correct/incorrect for each question
+            timer: null,
+            secondsRemaining: 15,
+            isAnswered: false,
+            startTime: 0,
+            endTime: 0
+        };
+
+        // --- Floating Emoji Background System ---
+        function createFloatingEmojis() {
+            const container = document.getElementById('bg-floating-emojis');
+            container.innerHTML = '';
+            
+            // Emoji bank specifically related to palm oil, mill, and lorry
+            const emojis = ['🌴', '🚚', '🏭', '⚙️', '🛢️', '🚛', '🍃', '💧', '🚜', '🥥'];
+            const screenWidth = window.innerWidth;
+            const density = Math.min(Math.floor(screenWidth / 30), 20); // Scale with screen width, max 20
+
+            for (let i = 0; i < density; i++) {
+                const span = document.createElement('span');
+                span.className = 'floating-emoji';
+                span.textContent = emojis[Math.floor(Math.random() * emojis.length)];
+                
+                const leftPos = Math.random() * 100; // in percent
+                const delay = Math.random() * 20; // in seconds
+                const duration = 15 + Math.random() * 25; // speed
+                const drift = -50 + Math.random() * 100; // horizontal drift px
+                const rotation = 360 + Math.random() * 720; // rotation angle
+
+                span.style.left = `${leftPos}%`;
+                span.style.animationDelay = `${-delay}s`; // start immediately at random offset
+                span.style.setProperty('--duration', `${duration}s`);
+                span.style.setProperty('--drift', `${drift}px`);
+                span.style.setProperty('--rotation', `${rotation}deg`);
+                
+                container.appendChild(span);
+            }
+        }
+
+        // --- Canvas Confetti Effect Engine ---
+        const confetti = {
+            canvas: null,
+            ctx: null,
+            particles: [],
+            active: false,
+            timer: null,
+
+            init() {
+                this.canvas = document.getElementById('confetti-canvas');
+                this.ctx = this.canvas.getContext('2d');
+                this.resize();
+                window.addEventListener('resize', () => this.resize());
+            },
+
+            resize() {
+                if (!this.canvas) return;
+                const rect = this.canvas.parentElement.getBoundingClientRect();
+                this.canvas.width = rect.width;
+                this.canvas.height = rect.height;
+            },
+
+            trigger() {
+                this.particles = [];
+                this.active = true;
+                this.resize();
+
+                const colors = ['#00b4d8', '#9d4edd', '#ff9e00', '#f72585', '#52b788', '#ffffff', '#ff3366', '#00f5d4'];
+                
+                // Spawn particles from both sides with higher density and larger size
+                for (let i = 0; i < 85; i++) {
+                    this.particles.push({
+                        x: Math.random() * this.canvas.width,
+                        y: this.canvas.height + 10,
+                        vx: -5 + Math.random() * 10,
+                        vy: -8 - Math.random() * 12,
+                        color: colors[Math.floor(Math.random() * colors.length)],
+                        r: 5 + Math.random() * 7,
+                        rotation: Math.random() * 360,
+                        rotationSpeed: -10 + Math.random() * 20,
+                        opacity: 1
+                    });
+                }
+
+                if (this.timer) cancelAnimationFrame(this.timer);
+                this.loop();
+            },
+
+            loop() {
+                if (!this.active) return;
+                this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+
+                let alive = false;
+
+                this.particles.forEach(p => {
+                    p.x += p.vx;
+                    p.y += p.vy;
+                    p.vy += 0.28; // gravity
+                    p.vx *= 0.98; // air resistance
+                    p.rotation += p.rotationSpeed;
+                    
+                    if (p.vy > 0) {
+                        p.opacity -= 0.015; // fade out as they fall
+                    }
+
+                    if (p.opacity > 0 && p.y < this.canvas.height + 20) {
+                        alive = true;
+                        this.ctx.save();
+                        this.ctx.translate(p.x, p.y);
+                        this.ctx.rotate(p.rotation * Math.PI / 180);
+                        this.ctx.globalAlpha = p.opacity;
+                        this.ctx.fillStyle = p.color;
+                        
+                        // Draw little confetti rectangle
+                        this.ctx.fillRect(-p.r, -p.r/2, p.r * 2, p.r);
+                        this.ctx.restore();
+                    }
+                });
+
+                if (alive) {
+                    this.timer = requestAnimationFrame(() => this.loop());
+                } else {
+                    this.active = false;
+                    this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+                }
+            }
+        };
+
+        // --- Avatar Selection Event Listeners ---
+        document.querySelectorAll('.avatar-card').forEach(card => {
+            card.addEventListener('click', () => {
+                audio.playBeep();
+                document.querySelectorAll('.avatar-card').forEach(c => c.classList.remove('selected'));
+                card.classList.add('selected');
+                gameState.playerAvatar = card.getAttribute('data-avatar');
+                gameState.playerRole = card.getAttribute('data-role');
+            });
+        });
+
+        // --- Welcome Screen Start Button ---
+        document.getElementById('btn-start').addEventListener('click', () => {
+            const nameInput = document.getElementById('player-name-input');
+            const welcomeCard = document.getElementById('welcome-screen');
+            
+            // Clean and validate name
+            let name = nameInput.value.trim();
+            if (!name) {
+                // Shake card as warning
+                audio.playIncorrect();
+                welcomeCard.classList.add('shake');
+                nameInput.focus();
+                setTimeout(() => welcomeCard.classList.remove('shake'), 400);
+                return;
+            }
+
+            gameState.playerName = name;
+            
+            // Play engine startup audio!
+            audio.playEngine();
+
+            // Transition Screen
+            welcomeCard.style.opacity = '0';
+            welcomeCard.style.transform = 'translateY(-20px) scale(0.97)';
+            
+            setTimeout(() => {
+                showScreen('quiz-screen');
+                initQuiz();
+            }, 300);
+        });
+
+        // --- Screen Switching Helper ---
+        function showScreen(screenId) {
+            document.querySelectorAll('.screen').forEach(s => {
+                s.classList.remove('active');
+            });
+            const activeScreen = document.getElementById(screenId);
+            activeScreen.classList.add('active');
+        }
+
+        // --- Quiz Gameplay Loop ---
+        function initQuiz() {
+            gameState.currentQuestionIndex = 0;
+            gameState.score = 0;
+            gameState.answers = [];
+            gameState.startTime = Date.now();
+            
+            // Inject player header profile
+            document.getElementById('quiz-avatar').textContent = gameState.playerAvatar;
+            document.getElementById('quiz-name').textContent = gameState.playerName;
+            document.getElementById('total-q-num').textContent = quizQuestions.length;
+
+            confetti.init();
+            loadQuestion();
+        }
+
+        function loadQuestion() {
+            gameState.isAnswered = false;
+            
+            // UI elements reset
+            document.getElementById('btn-next').style.display = 'none';
+            document.getElementById('explanation-box').style.display = 'none';
+            
+            const currentQ = quizQuestions[gameState.currentQuestionIndex];
+            
+            // Update counts
+            document.getElementById('current-q-num').textContent = gameState.currentQuestionIndex + 1;
+            document.getElementById('quiz-question-text').textContent = currentQ.question;
+            
+            // Render options
+            const container = document.getElementById('quiz-options-container');
+            container.innerHTML = '';
+
+            const badges = ['A', 'B', 'C', 'D'];
+            currentQ.options.forEach((optText, index) => {
+                const btn = document.createElement('button');
+                btn.className = 'option-btn';
+                btn.innerHTML = `<span class="option-badge">${badges[index]}</span> ${optText}`;
+                btn.addEventListener('click', () => handleOptionSelection(index, btn));
+                container.appendChild(btn);
+            });
+
+            // Position Lorry Marker
+            updateLorryProgress();
+
+            // Start countdown timer
+            startTimer();
+        }
+
+        // Lorry Progress bar movement
+        function updateLorryProgress() {
+            const marker = document.getElementById('lorry-marker');
+            const total = quizQuestions.length;
+            const current = gameState.currentQuestionIndex;
+            // Calculate percentage from 0% (estate) to 100% (mill)
+            const percent = (current / total) * 100;
+            
+            // Update lorry emoji based on character selection!
+            marker.textContent = gameState.playerAvatar;
+            marker.style.left = `${percent}%`;
+        }
+
+        // Countdown Timer Implementation
+        function startTimer() {
+            clearInterval(gameState.timer);
+            gameState.secondsRemaining = 15;
+            
+            const secondsText = document.getElementById('timer-seconds');
+            const circleProgress = document.getElementById('timer-progress');
+            const timerUI = document.getElementById('timer-ui');
+
+            timerUI.classList.remove('warning');
+            secondsText.textContent = gameState.secondsRemaining;
+            
+            // SVG circle dash circumference is ~118
+            circleProgress.style.strokeDashoffset = 0;
+
+            gameState.timer = setInterval(() => {
+                gameState.secondsRemaining--;
+                secondsText.textContent = gameState.secondsRemaining;
+
+                // Animate circle
+                const offset = (1 - (gameState.secondsRemaining / 15)) * 118;
+                circleProgress.style.strokeDashoffset = offset;
+
+                // Alert colors on low time
+                if (gameState.secondsRemaining <= 4) {
+                    timerUI.classList.add('warning');
+                }
+
+                if (gameState.secondsRemaining <= 0) {
+                    clearInterval(gameState.timer);
+                    handleTimeOut();
+                }
+            }, 1000);
+        }
+
+        function handleOptionSelection(selectedIndex, clickedBtn) {
+            if (gameState.isAnswered) return;
+            gameState.isAnswered = true;
+            clearInterval(gameState.timer);
+
+            const currentQ = quizQuestions[gameState.currentQuestionIndex];
+            const correctIndex = currentQ.correctIndex;
+            const optionBtns = document.querySelectorAll('.option-btn');
+
+            // Disable all option buttons
+            optionBtns.forEach(btn => btn.disabled = true);
+
+            if (selectedIndex === correctIndex) {
+                // Correct!
+                clickedBtn.classList.add('correct');
+                audio.playCorrect();
+                confetti.trigger();
+                gameState.score++;
+                gameState.answers.push(true);
+            } else {
+                // Incorrect!
+                clickedBtn.classList.add('incorrect');
+                optionBtns[correctIndex].classList.add('correct'); // Highlight the correct answer
+                audio.playIncorrect();
+                gameState.answers.push(false);
+            }
+
+            // Show insight explanation
+            const explanationBox = document.getElementById('explanation-box');
+            const explanationText = document.getElementById('explanation-text');
+            explanationText.textContent = currentQ.explanation || "Interesting fact about palm oil milling operations.";
+            explanationBox.style.display = 'block';
+
+            // Show "Next" button
+            const nextBtn = document.getElementById('btn-next');
+            if (gameState.currentQuestionIndex === quizQuestions.length - 1) {
+                nextBtn.innerHTML = 'Complete Delivery 🏭🏁';
+            } else {
+                nextBtn.innerHTML = 'Next Station ➡️';
+            }
+            nextBtn.style.display = 'flex';
+        }
+
+        function handleTimeOut() {
+            if (gameState.isAnswered) return;
+            gameState.isAnswered = true;
+
+            const currentQ = quizQuestions[gameState.currentQuestionIndex];
+            const correctIndex = currentQ.correctIndex;
+            const optionBtns = document.querySelectorAll('.option-btn');
+
+            optionBtns.forEach(btn => btn.disabled = true);
+            optionBtns[correctIndex].classList.add('correct'); // Highlight correct answer
+            
+            audio.playIncorrect();
+            gameState.answers.push(false);
+
+            // Show explanation
+            const explanationBox = document.getElementById('explanation-box');
+            const explanationText = document.getElementById('explanation-text');
+            explanationText.textContent = "Time expired! " + currentQ.explanation;
+            explanationBox.style.display = 'block';
+
+            // Show "Next" button
+            const nextBtn = document.getElementById('btn-next');
+            if (gameState.currentQuestionIndex === quizQuestions.length - 1) {
+                nextBtn.innerHTML = 'Complete Delivery 🏭🏁';
+            } else {
+                nextBtn.innerHTML = 'Next Station ➡️';
+            }
+            nextBtn.style.display = 'flex';
+        }
+
+        // --- Next Button Click Event ---
+        document.getElementById('btn-next').addEventListener('click', () => {
+            audio.playBeep();
+            gameState.currentQuestionIndex++;
+
+            if (gameState.currentQuestionIndex < quizQuestions.length) {
+                loadQuestion();
+            } else {
+                // End of quiz
+                finishQuiz();
+            }
+        });
+
+        // --- Finish Quiz (Show Results & High Scores) ---
+        function finishQuiz() {
+            gameState.endTime = Date.now();
+            const quizCard = document.getElementById('quiz-screen');
+            quizCard.style.opacity = '0';
+            quizCard.style.transform = 'translateY(-20px) scale(0.97)';
+
+            // Update lorry progress one final time to 100%
+            const marker = document.getElementById('lorry-marker');
+            marker.style.left = '100%';
+            
+            setTimeout(() => {
+                showScreen('result-screen');
+                animateResultGauge();
+                saveAndDisplayScores();
+            }, 300);
+        }
+
+        // Score gauge radial animation
+        function animateResultGauge() {
+            const scorePercent = Math.round((gameState.score / quizQuestions.length) * 100);
+            const scoreText = document.getElementById('score-percent');
+            const progressCircle = document.getElementById('result-progress');
+            const rankTitle = document.getElementById('rank-title');
+            const rankFeedback = document.getElementById('rank-feedback');
+
+            // Set text score
+            scoreText.textContent = `${scorePercent}%`;
+
+            // SVG circle circumference is ~439 (2 * PI * r)
+            // Animate stroke dash
+            const strokeOffset = 439 - (439 * scorePercent) / 100;
+            progressCircle.style.strokeDashoffset = 439; // reset
+
+            // Force reflow
+            progressCircle.getBoundingClientRect();
+            progressCircle.style.strokeDashoffset = strokeOffset;
+
+            // Compute custom fun palm oil titles
+            let rank = "";
+            let feedback = "";
+
+            if (scorePercent >= 90) {
+                rank = "Grand Mill Manager 🏭👑";
+                feedback = `Outstanding! Excellent job, ${gameState.playerName}! You ran the entire mill with maximum efficiency, zero wastage, and complete safety. You are a legendary operator!`;
+                audio.playVictory();
+            } else if (scorePercent >= 70) {
+                rank = "Expert Lorry Captain 🚛💨";
+                feedback = `Excellent work, ${gameState.playerName}! You delivered all FFBs in record time and successfully pressed high-quality Crude Palm Oil. The estate is proud of you!`;
+                audio.playVictory();
+            } else if (scorePercent >= 50) {
+                rank = "Super Harvester 🌴";
+                feedback = `Good job, ${gameState.playerName}! You successfully completed the delivery, though a few bunches were a bit underripe. Keep learning to optimize the press!`;
+                audio.playBeep();
+            } else {
+                rank = "Trainee Assistant 🛠️";
+                feedback = `Welcome to the mill, ${gameState.playerName}! You made it to the station, but several processing steps met difficulties. Let's study the milling guide and try again!`;
+                audio.playIncorrect();
+            }
+
+            rankTitle.textContent = rank;
+            rankFeedback.textContent = feedback;
+        }
+
+        // Save high score to LocalStorage and build the Leaderboard table
+        function saveAndDisplayScores() {
+            const finalScorePercent = Math.round((gameState.score / quizQuestions.length) * 100);
+            const timeTakenSec = Math.round((gameState.endTime - gameState.startTime) / 1000);
+            
+            const newEntry = {
+                name: gameState.playerName,
+                avatar: gameState.playerAvatar,
+                score: finalScorePercent,
+                time: timeTakenSec,
+                date: Date.now()
+            };
+
+            // Read existing scores
+            let leaderboard = [];
+            try {
+                const stored = localStorage.getItem('prodata_mill_quiz_scores');
+                if (stored) {
+                    leaderboard = JSON.parse(stored);
+                }
+            } catch (e) {
+                console.error("Error reading localStorage high scores", e);
+            }
+
+            // Add new score and sort
+            leaderboard.push(newEntry);
+            // Sort by score descending, then by time ascending
+            leaderboard.sort((a, b) => {
+                if (b.score !== a.score) {
+                    return b.score - a.score;
+                }
+                return a.time - b.time;
+            });
+
+            // Keep top 5
+            leaderboard = leaderboard.slice(0, 5);
+
+            // Save back to LocalStorage
+            try {
+                localStorage.setItem('prodata_mill_quiz_scores', JSON.stringify(leaderboard));
+            } catch (e) {
+                console.error("Error writing localStorage high scores", e);
+            }
+
+            // Render table
+            const tbody = document.getElementById('leaderboard-rows');
+            tbody.innerHTML = '';
+
+            leaderboard.forEach((entry, index) => {
+                const row = document.createElement('tr');
+                row.className = 'leaderboard-row';
+                
+                // Highlight current player's entry
+                if (entry.name === newEntry.name && entry.score === newEntry.score && Math.abs(entry.date - newEntry.date) < 2000) {
+                    row.classList.add('highlight');
+                }
+
+                // Custom rank trophy or number
+                let rankLabel = index + 1;
+                if (index === 0) rankLabel = '🥇';
+                if (index === 1) rankLabel = '🥈';
+                if (index === 2) rankLabel = '🥉';
+
+                row.innerHTML = `
+                    <td class="leaderboard-cell cell-rank">${rankLabel}</td>
+                    <td class="leaderboard-cell cell-player"><span>${entry.avatar}</span> <span>${entry.name}</span></td>
+                    <td class="leaderboard-cell cell-score">${entry.score}% <span style="font-size: 10px; color: rgba(255,255,255,0.4); font-weight: normal; margin-left: 4px;">(${entry.time}s)</span></td>
+                `;
+                tbody.appendChild(row);
+            });
+        }
+
+        // --- Restart Game Event Listener ---
+        document.getElementById('btn-restart').addEventListener('click', () => {
+            audio.playBeep();
+            
+            const resultCard = document.getElementById('result-screen');
+            resultCard.style.opacity = '0';
+            resultCard.style.transform = 'translateY(-20px) scale(0.97)';
+
+            setTimeout(() => {
+                showScreen('welcome-screen');
+                document.getElementById('welcome-screen').style.opacity = '1';
+                document.getElementById('welcome-screen').style.transform = 'translateY(0) scale(1)';
+                
+                // Reset player input (or leave name for convenience)
+                document.getElementById('player-name-input').focus();
+            }, 300);
+        });
+
+        // --- Initial Load Events ---
+        window.addEventListener('DOMContentLoaded', async () => {
+            createFloatingEmojis();
+            window.addEventListener('resize', createFloatingEmojis);
+            
+            // Load and parse the CSV database
+            await loadQuestionsFromCSV();
+        });
+    </script>
+</body>
+</html>
