@@ -1,10 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ms">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, safe-area-inset-bottom">
-    <title>Prodata Mill Special Quiz</title>
-    <!-- Google Fonts: Outfit for premium modern typography -->
+    <title>Kuiz Istimewa Kilang Prodata</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700;800&display=swap');
 
@@ -916,54 +915,51 @@
 </head>
 <body>
 
-    <!-- Floating Background Canvas / Element -->
     <div id="bg-floating-emojis"></div>
 
     <div class="app-container">
-        <!-- 1. Welcome Screen -->
         <div id="welcome-screen" class="card screen active">
             <div class="brand-header">
-                <div class="title-badge">🌴 Estate to Mill Journey 🚛</div>
-                <h1>Prodata Mill<br><span class="icon-wrap">🏭</span> Special Quiz <span class="icon-wrap">⚙️</span></h1>
-                <p class="subtitle">Deliver your fresh fruit bunches and prove your palm oil milling expertise!</p>
+                <div class="title-badge">🌴 Perjalanan Ladang ke Kilang 🚛</div>
+                <h1>Kuiz Istimewa<br><span class="icon-wrap">🏭</span> Kilang Prodata <span class="icon-wrap">⚙️</span></h1>
+                <p class="subtitle">Hantar tandan buah segar anda dan buktikan kepakaran anda dalam pengilangan kelapa sawit!</p>
             </div>
 
             <div class="form-group">
-                <label for="player-name-input">Driver / Engineer Name</label>
-                <input type="text" id="player-name-input" class="input-text" placeholder="Enter name..." autocomplete="off" maxlength="15">
+                <label for="player-name-input">Nama Pemandu / Jurutera</label>
+                <input type="text" id="player-name-input" class="input-text" placeholder="Masukkan nama..." autocomplete="off" maxlength="15">
             </div>
 
-            <label>Choose Your Role Avatar</label>
+            <label>Pilih Avatar Peranan Anda</label>
             <div class="avatar-grid">
                 <div class="avatar-card selected" data-avatar="🚛" data-role="Lorry Captain">
                     <span class="avatar-emoji">🚛</span>
-                    <span class="avatar-label">Lorry Captain</span>
+                    <span class="avatar-label">Kapten Lori</span>
                 </div>
                 <div class="avatar-card" data-avatar="👷" data-role="Mill Engineer">
                     <span class="avatar-emoji">👷</span>
-                    <span class="avatar-label">Mill Engineer</span>
+                    <span class="avatar-label">Jurutera Kilang</span>
                 </div>
                 <div class="avatar-card" data-avatar="🧑‍🌾" data-role="Palm Harvester">
                     <span class="avatar-emoji">🧑‍🌾</span>
-                    <span class="avatar-label">Harvester Pro</span>
+                    <span class="avatar-label">Pakar Penuai</span>
                 </div>
             </div>
 
             <button id="btn-start" class="btn">
-                Start Engine & Go! 🚚
+                Hidupkan Enjin & Mula! 🚚
             </button>
         </div>
 
-        <!-- 2. Quiz screen -->
         <div id="quiz-screen" class="card screen">
             <canvas id="confetti-canvas"></canvas>
             
             <div class="quiz-header">
                 <div class="player-profile">
                     <span id="quiz-avatar" class="player-avatar">🚛</span>
-                    <span id="quiz-name" class="player-name">Captain</span>
+                    <span id="quiz-name" class="player-name">Kapten</span>
                 </div>
-                <div class="question-counter">Question <span id="current-q-num">1</span>/<span id="total-q-num">8</span></div>
+                <div class="question-counter">Soalan <span id="current-q-num">1</span>/<span id="total-q-num">8</span></div>
                 <div class="timer-container" id="timer-ui">
                     <svg class="timer-svg">
                         <circle class="timer-circle-bg" cx="21" cy="21" r="19"></circle>
@@ -974,27 +970,24 @@
             </div>
 
             <div class="question-box">
-                <div class="question-text" id="quiz-question-text">Loading question...</div>
+                <div class="question-text" id="quiz-question-text">Memuatkan soalan...</div>
                 <div class="options-list" id="quiz-options-container">
-                    <!-- Option buttons will be injected here -->
-                </div>
+                    </div>
             </div>
 
-            <!-- Explanation Panel -->
             <div class="explanation-panel" id="explanation-box">
-                <div class="explanation-header">💡 Mill Insight</div>
-                <div class="explanation-text" id="explanation-text">Explanation here...</div>
+                <div class="explanation-header">💡 Info Kilang</div>
+                <div class="explanation-text" id="explanation-text">Penerangan di sini...</div>
             </div>
 
             <button id="btn-next" class="btn" style="display: none;">
-                Next Station ➡️
+                Stesen Seterusnya ➡️
             </button>
 
-            <!-- Lorry Progress Tracker -->
             <div class="progress-road-container">
                 <div class="progress-labels">
-                    <span>🌴 Estate (Start)</span>
-                    <span>Mill (Goal) 🏭</span>
+                    <span>🌴 Ladang (Mula)</span>
+                    <span>Kilang (Tamat) 🏭</span>
                 </div>
                 <div class="progress-road">
                     <div class="progress-lorry" id="lorry-marker">🚚</div>
@@ -1002,11 +995,10 @@
             </div>
         </div>
 
-        <!-- 3. Result / Score Screen -->
         <div id="result-screen" class="card screen">
             <div class="brand-header">
-                <div class="title-badge">Operations Completed! 🏁</div>
-                <h1>Delivery Status</h1>
+                <div class="title-badge">Operasi Selesai! 🏁</div>
+                <h1>Status Penghantaran</h1>
             </div>
 
             <div class="result-gauge-container">
@@ -1024,46 +1016,42 @@
                     </svg>
                     <div class="result-score-panel">
                         <div class="result-score-val" id="score-percent">80%</div>
-                        <div class="result-score-label">Score</div>
+                        <div class="result-score-label">Markah</div>
                     </div>
                 </div>
-                <div class="result-rank-title" id="rank-title">Expert Lorry Captain</div>
+                <div class="result-rank-title" id="rank-title">Kapten Lori Pakar</div>
             </div>
 
             <p class="result-feedback" id="rank-feedback">
-                Outstanding! You delivered your cargo safely to the mill with maximum efficiency.
+                Hebat! Anda telah menghantar kargo dengan selamat ke kilang dengan kecekapan maksimum.
             </p>
 
-            <!-- High Scores Leaderboard -->
             <div class="leaderboard-box">
-                <div class="leaderboard-title">🏆 Top Mill Operators Leaderboard</div>
+                <div class="leaderboard-title">🏆 Papan Pendahulu Operator Kilang Terbaik</div>
                 <table class="leaderboard-table">
                     <thead>
                         <tr style="border-bottom: 1.5px solid rgba(82, 183, 136, 0.25); text-align: left;">
-                            <th class="leaderboard-cell" style="width: 50px; color: var(--light-green); font-size: 11px; text-transform: uppercase;">Rank</th>
+                            <th class="leaderboard-cell" style="width: 50px; color: var(--light-green); font-size: 11px; text-transform: uppercase;">Kedudukan</th>
                             <th class="leaderboard-cell" style="color: var(--light-green); font-size: 11px; text-transform: uppercase;">Operator</th>
-                            <th class="leaderboard-cell" style="text-align: right; color: var(--light-green); font-size: 11px; text-transform: uppercase;">Score</th>
+                            <th class="leaderboard-cell" style="text-align: right; color: var(--light-green); font-size: 11px; text-transform: uppercase;">Markah</th>
                         </tr>
                     </thead>
                     <tbody id="leaderboard-rows">
-                        <!-- High scores loaded here -->
-                    </tbody>
+                        </tbody>
                 </table>
             </div>
 
             <button id="btn-restart" class="btn">
-                Deliver Another Load! 🔄
+                Hantar Muatan Seterusnya! 🔄
             </button>
         </div>
     </div>
 
-    <!-- CSV status bar -->
     <div class="db-status">
         <span id="db-status-dot" class="db-dot fallback"></span>
-        <span id="db-status-text">Using Local Database</span>
+        <span id="db-status-text">Menggunakan Pangkalan Data Tempatan</span>
     </div>
 
-    <!-- Client-Side JavaScript Game Logic -->
     <script>
         // --- Custom Web Audio API Synthesizer ---
         class SoundSynth {
@@ -1263,52 +1251,52 @@
         // --- Question Database Fallback Content ---
         const fallbackQuestions = [
             {
-                question: "What does FFB stand for in palm oil milling?",
-                options: ["Fast Flying Banana 🍌", "Fresh Fruit Bunch 🌴", "Fine Filtered Butter 🧈", "Friendly Forest Buffalo 🦬"],
+                question: "Apakah maksud FFB (BTS) dalam pengilangan kelapa sawit?",
+                options: ["Pisang Terbang Laju (Fast Flying Banana) 🍌", "Tandan Buah Segar (Fresh Fruit Bunch) 🌴", "Mentega Ditapis Halus (Fine Filtered Butter) 🧈", "Kerbau Hutan Mesra (Friendly Forest Buffalo) 🦬"],
                 correctIndex: 1,
-                explanation: "FFB stands for Fresh Fruit Bunch. It is the primary raw material harvested from palm trees and delivered to the mill."
+                explanation: "FFB bermaksud Fresh Fruit Bunch (Tandan Buah Segar). Ia adalah bahan mentah utama yang dituai dari pokok kelapa sawit dan dihantar ke kilang."
             },
             {
-                question: "What is the main purpose of the \"Sterilization\" station in the mill?",
-                options: ["To make the fruits smell like lavender 🌸", "To deactivate enzymes and loosen fruits from bunches ⚙️", "To wash the lorry wheels 🚿", "To turn the oil into gold 🪙"],
+                question: "Apakah tujuan utama stesen \"Penseterilan\" di kilang?",
+                options: ["Untuk menjadikan buah berbau seperti lavender 🌸", "Untuk menyahaktifkan enzim dan melonggarkan buah dari tandan ⚙️", "Untuk mencuci tayar lori 🚿", "Untuk menukar minyak menjadi emas 🪙"],
                 correctIndex: 1,
-                explanation: "Sterilization uses steam to deactivate enzymes (preventing FFA build-up) and loosen the fruits from the bunch stalks."
+                explanation: "Penseterilan menggunakan wap untuk menyahaktifkan enzim (mencegah pembentukan Asid Lemak Bebas/FFA) dan melonggarkan buah dari tangkai tandan."
             },
             {
-                question: "Which vehicle is most commonly used to transport FFBs from estates to the mill?",
-                options: ["High-speed sports car 🏎️", "Double-decker tour bus 🚌", "FFB Lorry/Truck 🚚", "Submarine 🤿"],
+                question: "Kenderaan manakah yang paling kerap digunakan untuk mengangkut BTS dari ladang ke kilang?",
+                options: ["Kereta sport berkelajuan tinggi 🏎️", "Bas persiaran dua tingkat 🚌", "Lori/Trak BTS 🚚", "Kapal selam 🤿"],
                 correctIndex: 2,
-                explanation: "Heavy FFB lorries and trucks are the workhorses that transport tons of Fresh Fruit Bunches daily from estates to mills."
+                explanation: "Lori dan trak BTS berat adalah jentera utama yang mengangkut bertan-tan Tandan Buah Segar setiap hari dari ladang ke kilang."
             },
             {
-                question: "What color is Crude Palm Oil (CPO) right after extraction?",
-                options: ["Vibrant Sky Blue 🔵", "Bright Orange-Red 🔴", "Jet Metallic Black ⚫", "Neon Purple 🟣"],
+                question: "Apakah warna Minyak Sawit Mentah (MSM/CPO) sejurus selepas pengekstrakan?",
+                options: ["Biru Langit Terang 🔵", "Merah-Jingga Terang 🔴", "Hitam Metalik Pekat ⚫", "Ungu Neon 🟣"],
                 correctIndex: 1,
-                explanation: "Crude Palm Oil is naturally bright orange-red due to its exceptionally high content of carotenoids (vitamin A precursors)."
+                explanation: "Minyak Sawit Mentah secara semulajadi berwarna merah-jingga terang kerana kandungan karotenoidnya (prekursor vitamin A) yang sangat tinggi."
             },
             {
-                question: "Which machine separates the palm kernels from their cracked shells?",
-                options: ["Claybath or Hydrocyclone 🛁", "Automatic Egg Slicer 🥚", "Electric Toothbrush 🪥", "Popcorn Maker 🍿"],
+                question: "Mesin manakah yang memisahkan isirung sawit (kernel) daripada cengkerangnya yang telah dipecahkan?",
+                options: ["Mandian Tanah Liat (Claybath) atau Hidrosiklon 🛁", "Pemotong Telur Automatik 🥚", "Berus Gigi Elektrik 🪥", "Pembuat Bertih Jagung 🍿"],
                 correctIndex: 0,
-                explanation: "A Claybath or Hydrocyclone uses density differences in a liquid medium to float kernels and sink cracked shells."
+                explanation: "Mandian Tanah Liat atau Hidrosiklon menggunakan perbezaan ketumpatan dalam medium cecair untuk mengapungkan isirung dan menenggelamkan cengkerang yang retak."
             },
             {
-                question: "What is the main job of the \"Threshing\" station?",
-                options: ["To clean the lorry windshields 🧽", "To separate sterilized fruits from the empty bunches 🔄", "To grind kernels into coffee powder ☕", "To sing welcome songs to visitors 🎶"],
+                question: "Apakah tugas utama stesen \"Banting\" (Threshing)?",
+                options: ["Untuk membersihkan cermin depan lori 🧽", "Untuk memisahkan buah yang telah disteril daripada tandan kosong 🔄", "Untuk mengisar isirung menjadi serbuk kopi ☕", "Untuk menyanyikan lagu selamat datang kepada pelawat 🎶"],
                 correctIndex: 1,
-                explanation: "The Threshing station uses a rotating drum to shake loose and separate the sterilized fruits from the empty fruit bunches (EFB)."
+                explanation: "Stesen Banting menggunakan dram berputar untuk menggoncang dan memisahkan buah yang telah disteril daripada tandan buah kosong (EFB)."
             },
             {
-                question: "What is the abbreviation for the liquid waste water generated from palm oil milling?",
-                options: ["COLA 🥤", "PEPSI 🥤", "POME (Palm Oil Mill Effluent) 💧", "JUICE 🍹"],
+                question: "Apakah singkatan bagi air sisa cecair yang terhasil daripada pengilangan kelapa sawit?",
+                options: ["COLA 🥤", "PEPSI 🥤", "POME (Efluen Kilang Minyak Sawit) 💧", "JUS 🍹"],
                 correctIndex: 2,
-                explanation: "POME stands for Palm Oil Mill Effluent. It is the organic wastewater produced during the clarification and purification stages."
+                explanation: "POME bermaksud Efluen Kilang Minyak Sawit (Palm Oil Mill Effluent). Ia adalah air sisa organik yang dihasilkan semasa peringkat penjernihan dan penulenan."
             },
             {
-                question: "How heavy is a typical fully loaded palm oil FFB lorry?",
-                options: ["100 grams (like a small bird) 🐦", "10 to 30 tonnes! 🚛", "5 kilograms (like a cat) 🐱", "1 million tonnes (like a mountain) 🏔️"],
+                question: "Berapakah berat lori BTS kelapa sawit yang bermuatan penuh?",
+                options: ["100 gram (seperti burung kecil) 🐦", "10 hingga 30 tan! 🚛", "5 kilogram (seperti kucing) 🐱", "1 juta tan (seperti gunung) 🏔️"],
                 correctIndex: 1,
-                explanation: "Fully loaded FFB lorries are heavy-duty vehicles, typically weighing between 10 to 30 tonnes depending on the truck size."
+                explanation: "Lori BTS bermuatan penuh adalah kenderaan tugas berat, biasanya seberat antara 10 hingga 30 tan bergantung pada saiz trak."
             }
         ];
 
@@ -1394,7 +1382,7 @@
                 if (parsed.length > 0) {
                     quizQuestions = parsed;
                     statusDot.className = "db-dot success";
-                    statusText.textContent = `CSV Database Connected (${parsed.length} Questions)`;
+                    statusText.textContent = `Pangkalan Data CSV Bersambung (${parsed.length} Soalan)`;
                     console.log(`Loaded ${parsed.length} questions from CSV.`);
                 } else {
                     throw new Error("CSV parsed, but 0 valid questions found.");
@@ -1402,7 +1390,7 @@
             } catch (error) {
                 console.warn("Could not load external CSV. Falling back to local data.", error);
                 statusDot.className = "db-dot fallback";
-                statusText.textContent = "Offline Mode (Local Database Connected)";
+                statusText.textContent = "Mod Luar Talian (Pangkalan Data Tempatan Bersambung)";
                 quizQuestions = [...fallbackQuestions];
             }
         }
@@ -1719,15 +1707,15 @@
             // Show insight explanation
             const explanationBox = document.getElementById('explanation-box');
             const explanationText = document.getElementById('explanation-text');
-            explanationText.textContent = currentQ.explanation || "Interesting fact about palm oil milling operations.";
+            explanationText.textContent = currentQ.explanation || "Fakta menarik tentang operasi kilang kelapa sawit.";
             explanationBox.style.display = 'block';
 
             // Show "Next" button
             const nextBtn = document.getElementById('btn-next');
             if (gameState.currentQuestionIndex === quizQuestions.length - 1) {
-                nextBtn.innerHTML = 'Complete Delivery 🏭🏁';
+                nextBtn.innerHTML = 'Selesaikan Penghantaran 🏭🏁';
             } else {
-                nextBtn.innerHTML = 'Next Station ➡️';
+                nextBtn.innerHTML = 'Stesen Seterusnya ➡️';
             }
             nextBtn.style.display = 'flex';
         }
@@ -1749,15 +1737,15 @@
             // Show explanation
             const explanationBox = document.getElementById('explanation-box');
             const explanationText = document.getElementById('explanation-text');
-            explanationText.textContent = "Time expired! " + currentQ.explanation;
+            explanationText.textContent = "Masa tamat! " + currentQ.explanation;
             explanationBox.style.display = 'block';
 
             // Show "Next" button
             const nextBtn = document.getElementById('btn-next');
             if (gameState.currentQuestionIndex === quizQuestions.length - 1) {
-                nextBtn.innerHTML = 'Complete Delivery 🏭🏁';
+                nextBtn.innerHTML = 'Selesaikan Penghantaran 🏭🏁';
             } else {
-                nextBtn.innerHTML = 'Next Station ➡️';
+                nextBtn.innerHTML = 'Stesen Seterusnya ➡️';
             }
             nextBtn.style.display = 'flex';
         }
@@ -1818,20 +1806,20 @@
             let feedback = "";
 
             if (scorePercent >= 90) {
-                rank = "Grand Mill Manager 🏭👑";
-                feedback = `Outstanding! Excellent job, ${gameState.playerName}! You ran the entire mill with maximum efficiency, zero wastage, and complete safety. You are a legendary operator!`;
+                rank = "Pengurus Besar Kilang 🏭👑";
+                feedback = `Luar biasa! Kerja yang sangat cemerlang, ${gameState.playerName}! Anda mengendalikan seluruh kilang dengan kecekapan maksimum, sifar pembaziran, dan keselamatan sepenuhnya. Anda adalah operator legenda!`;
                 audio.playVictory();
             } else if (scorePercent >= 70) {
-                rank = "Expert Lorry Captain 🚛💨";
-                feedback = `Excellent work, ${gameState.playerName}! You delivered all FFBs in record time and successfully pressed high-quality Crude Palm Oil. The estate is proud of you!`;
+                rank = "Kapten Lori Pakar 🚛💨";
+                feedback = `Kerja yang cemerlang, ${gameState.playerName}! Anda menghantar semua BTS dalam masa rekod dan berjaya memerah Minyak Sawit Mentah berkualiti tinggi. Pihak ladang berbangga dengan anda!`;
                 audio.playVictory();
             } else if (scorePercent >= 50) {
-                rank = "Super Harvester 🌴";
-                feedback = `Good job, ${gameState.playerName}! You successfully completed the delivery, though a few bunches were a bit underripe. Keep learning to optimize the press!`;
+                rank = "Penuai Hebat 🌴";
+                feedback = `Bagus, ${gameState.playerName}! Anda berjaya menyelesaikan penghantaran, walaupun beberapa tandan kurang masak. Terus belajar untuk mengoptimumkan pemerahan!`;
                 audio.playBeep();
             } else {
-                rank = "Trainee Assistant 🛠️";
-                feedback = `Welcome to the mill, ${gameState.playerName}! You made it to the station, but several processing steps met difficulties. Let's study the milling guide and try again!`;
+                rank = "Pembantu Pelatih 🛠️";
+                feedback = `Selamat datang ke kilang, ${gameState.playerName}! Anda berjaya sampai ke stesen, tetapi beberapa langkah pemprosesan menghadapi kesukaran. Mari kaji panduan pengilangan dan cuba lagi!`;
                 audio.playIncorrect();
             }
 
